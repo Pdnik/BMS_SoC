@@ -28,7 +28,7 @@ const char* server = "api.thingspeak.com";
 
 int analogInPin = A0;      // Analog input pin
 int sensorValue;           // Analog Output of Sensor
-float calibration = 0.36;  // Check Battery voltage using multimeter & add/subtract the value
+float calibration = 0.32;  // Check Battery voltage using multimeter & add/subtract the value
 int bat_percentage;
 
 WiFiClient client;
