@@ -22,13 +22,13 @@
 #include <ESP8266WiFi.h>
 
 String apiKey = "O06YKZM7IRJIXQNY";
-const char* ssid = "Redmi Note 9 Pro";  // Enter your WiFi Network's SSID
-const char* pass = "44444444";          // Enter your WiFi Network's Password
+const char* ssid = "Redmi Note 9 Pro";  //  WiFi Network's SSID
+const char* pass = "44444444";          //  WiFi Network's Password
 const char* server = "api.thingspeak.com";
 
 int analogInPin = A0;      // Analog input pin
 int sensorValue;           // Analog Output of Sensor
-float calibration = 0.36;  // Check Battery voltage using multimeter & add/subtract the value
+float calibration = 0.32;  // Check Battery voltage using multimeter & add/subtract the value
 int bat_percentage;
 
 WiFiClient client;
@@ -51,7 +51,7 @@ void loop() {
   sensorValue = analogRead(analogInPin);
   float voltage = (((sensorValue * 4.2) / 1024)  - calibration); 
 
-  bat_percentage = mapfloat(voltage, 2.5, 4.2, 0, 100);  //2.5V as Battery Cut off Voltage & 4.2V as Maximum Voltage
+  bat_percentage = mapfloat(voltage, 2.53, 4.2, 0, 100);  //2.53V as Battery Cut off Voltage & 4.2V as Maximum Voltage
 
   if (bat_percentage >= 100) {
     bat_percentage = 100;
@@ -66,8 +66,9 @@ void loop() {
   Serial.print(voltage);
   Serial.print("\t Battery Percentage = ");
   Serial.println(bat_percentage);
-  delay(1000);
+  
 
+//estabilishing connection between WIFI client and Thingspeak server
   if (client.connect(server, 80)) {
 
     String postStr = apiKey;
@@ -77,21 +78,21 @@ void loop() {
     postStr += String(bat_percentage);
     postStr += "\r\n\r\n";
 
-    client.print("POST /update HTTP/1.1\n");
+    client.print("POST /update HTTP/1.1\r\n");
     delay(1);
-    client.print("Host: api.thingspeak.com\n");
+    client.print("Host: api.thingspeak.com\r\n");
     delay(1);
-    client.print("Connection: close\n");
+    client.print("Connection: close\r\n");
     delay(1);
-    client.print("X-THINGSPEAKAPIKEY: " + apiKey + "\n");
+    client.print("X-THINGSPEAKAPIKEY: " + apiKey + "\r\n");
     delay(1);
-    client.print("Content-Type: application/x-www-form-urlencoded\n");
+    client.print("Content-Type: application/x-www-form-urlencoded\r\n");
     delay(1);
     client.print("Content-Length: ");
     delay(1);
     client.print(postStr.length());
     delay(1);
-    client.print("\n\n");
+    client.print("\r\n\r\n");
     delay(1);
     client.print(postStr);
     delay(1);
