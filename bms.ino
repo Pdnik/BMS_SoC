@@ -23,7 +23,7 @@
 
 String apiKey = "O06YKZM7IRJIXQNY";
 const char* ssid = "Redmi Note 9 Pro";  // Enter your WiFi Network's SSID
-const char* pass = "44444444";          // Enter your WiFi Network's Password
+const char* pass = "4xxxxxxx";          // Enter your WiFi Network's Password
 const char* server = "api.thingspeak.com";
 
 int analogInPin = A0;      // Analog input pin
